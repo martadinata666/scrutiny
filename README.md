@@ -53,9 +53,6 @@ The architectures supported by this image are:
 | Architecture | Tag |
 | :----: | --- |
 | x86-64 | amd64-latest |
-| arm64 | arm64v8-latest |
-| armhf | arm32v7-latest |
-
 
 ## Usage
 
@@ -168,9 +165,8 @@ In this instance `PUID=1000` and `PGID=1000`, to find yours use `id user` as bel
 ```
 
 ## What difference from Official
-This image tweaked to find hotdirs and finddupes after daily initial crawler finished.
+This image tweaked to pool disk health and temperature every 15 minutes.
 
-&nbsp;
 ## Application Setup
 
 This container can be run as an 'all-in-one' deployment or as a hub / spoke deployment. Use the environment variables `SCRUTINY_WEB` and `SCRUTINY_COLLECTOR` to control the mode of the container. Setting both to `true` will deploy the container as both a collector and the web UI - this is the simplest and most straightforward deployment approach. To make use of the hub and spoke model, run this container in "collector" mode by specifying `SCRUTINY_API_ENDPOINT`. Set this to the host that is running the API. For this to work, you will need to expose the API port directly from the container (by default this is `8080`).
@@ -245,14 +241,6 @@ docker build \
   --pull \
   -t ghcr.io/linuxserver/scrutiny:latest .
 ```
-
-The ARM variants can be built on x86_64 hardware using `multiarch/qemu-user-static`
-```
-docker run --rm --privileged multiarch/qemu-user-static:register --reset
-```
-
-Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64`.
-
 ## Versions
 
 * **17.09.20:** - Initial Release.
