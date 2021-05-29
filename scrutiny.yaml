@@ -22,10 +22,10 @@ web:
     host: 0.0.0.0
   database:
     # can also set absolute path here
-    location: /home/alpine/scrutiny/config/scrutiny.db
+    location: /home/debian/scrutiny/config/scrutiny.db
   src:
     frontend:
-      path: /home/alpine/scrutiny/web
+      path: /home/debian/scrutiny/web
 
 disks:
   include:
