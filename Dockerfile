@@ -1,4 +1,4 @@
-FROM registry.gitlab.com/dedyms/sid-slim:latest
+FROM registry.gitlab.com/dedyms/sid-slim:latest AS tukang
 ARG RELEASE
 ARG ARCH
 ENV SCRUTINY_VERSION=$RELEASE
@@ -13,5 +13,15 @@ ADD --chown=$CONTAINERUSER:$CONTAINERUSER https://github.com/AnalogJ/scrutiny/re
 RUN chmod +x /home/$CONTAINERUSER/scrutiny/bin/scrutiny-web-linux-$ARCH && \
     tar xvzf /home/$CONTAINERUSER/scrutiny/web/scrutiny-web-frontend.tar.gz --strip-components 1 -C /home/$CONTAINERUSER/scrutiny/web && \
     rm /home/$CONTAINERUSER/scrutiny/web/scrutiny-web-frontend.tar.gz
+#VOLUME /home/$CONTAINERUSER/scrutiny/config
+#CMD /home/$CONTAINERUSER/scrutiny/bin/scrutiny-web-linux-amd64 start --config /home/$CONTAINERUSER/scrutiny/config/scrutiny.yaml
+
+
+FROM registry.gitlab.com/dedyms/sid-slim:latest
+ARG ARCH
+ARG RELEASE
+ENV SCRUTINY_VERSION=$RELEASE
+USER $CONTAINERUSER
+COPY --from=tukang /home/$CONTAINERUSER/scrutiny/ /home/$CONTAINERUSER/scrutiny/
 VOLUME /home/$CONTAINERUSER/scrutiny/config
-CMD /home/$CONTAINERUSER/scrutiny/bin/scrutiny-web-linux-amd64 start --config /home/$CONTAINERUSER/scrutiny/config/scrutiny.yaml
+CMD /home/$CONTAINERUSER/scrutiny/bin/scrutiny-web-linux-amd64 start --config /home/$CONTAINERUSER/scrutiny/confing/scrutiny.yaml
