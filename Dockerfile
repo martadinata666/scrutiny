@@ -11,7 +11,7 @@ WORKDIR /home/$CONTAINERUSER/scrutiny
 COPY scrutiny.yaml /home/$CONTAINERUSER/scrutiny/config/scrutiny.yaml
 ADD --chown=$CONTAINERUSER:$CONTAINERUSER https://github.com/AnalogJ/scrutiny/releases/download/$RELEASE/scrutiny-web-linux-$ARCH /home/$CONTAINERUSER/scrutiny/bin
 ADD --chown=$CONTAINERUSER:$CONTAINERUSER https://github.com/AnalogJ/scrutiny/releases/download/$RELEASE/scrutiny-web-frontend.tar.gz /home/$CONTAINERUSER/scrutiny/web
-RUN chmod +x /home/$CONTAINERUER/scrutiny/bin/scrutiny-web-linux-$ARCH && \
+RUN chmod +x /home/$CONTAINERUSER/scrutiny/bin/scrutiny-web-linux-$ARCH && \
     tar xvzf /home/$CONTAINERUSER/scrutiny/web/scrutiny-web-frontend.tar.gz --strip-components 1 -C /home/$CONTAINERUSER/scrutiny/web && \
     rm /home/$CONTAINERUSER/scrutiny/web/scrutiny-web-frontend.tar.gz
 
