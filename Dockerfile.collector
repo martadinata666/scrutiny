@@ -3,7 +3,6 @@ ARG RELEASE
 ARG ARCH
 ENV SCRUTINY_VERSION=$RELEASE
 RUN apt update && apt install --no-install-recommends -y smartmontools cron && apt clean && rm -rf /var/lib/apt/lists/*
-COPY init.sh /init.sh
 RUN mkdir -p /scrutiny/collector
 WORKDIR /scrutiny/collector
 COPY scrutiny.cron /etc/cron.d/scrutiny
