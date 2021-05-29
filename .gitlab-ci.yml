@@ -13,7 +13,7 @@ docker-build-amd64:
     - export ARCH=amd64
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
   script:
-    - docker build --build-arg RELEASE=$RELASE --build-arg ARCH=$ARCH --pull -t "$CI_REGISTRY_IMAGE" -t "$CI_REGISTRY_IMAGE:$RELEASE" .
+    - docker build --build-arg RELEASE=$RELEASE --build-arg ARCH=$ARCH --pull -t "$CI_REGISTRY_IMAGE" -t "$CI_REGISTRY_IMAGE:$RELEASE" .
     - docker push "$CI_REGISTRY_IMAGE"
     - docker push "$CI_REGISSTRY_IMAGE:$RELEASE"
   only:
