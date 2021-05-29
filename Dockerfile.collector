@@ -1,4 +1,4 @@
-FROM registry.gitlab.com/dedyms/sid-slim:rolling
+FROM registry.gitlab.com/dedyms/sid-slim:latest
 ARG RELEASE
 ARG ARCH
 ENV SCRUTINY_VERSION=$RELEASE
