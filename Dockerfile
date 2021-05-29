@@ -2,7 +2,7 @@ FROM registry.gitlab.com/dedyms/sid-slim:rolling
 ARG RELEASE
 ARG ARCH
 ENV SCRUTINY_VERSION=$RELEASE
-RUN apt update && apt install -y smartmontools cron && apt clean && rm -rf /var/lib/apt/lists/*
+RUN apt update && apt install --no-install-recommends -y smartmontools cron && apt clean && rm -rf /var/lib/apt/lists/*
 USER $CONTAINERUSER
 RUN mkdir -p /home/$CONTAINERUSER/scrutiny/config && \
     mkdir -p /home/$CONTAINERUSER/scrutiny/web && \
