@@ -21,4 +21,4 @@ RUN chmod +x /home/$CONTAINERUSER/scrutiny/bin/scrutiny-web-linux-$ARCH && \
     rm /home/$CONTAINERUSER/scrutiny/web/scrutiny-web-frontend.tar.gz
 #ENTRYPOINT ["cron", "-f"]
 #CMD /home/$CONTAINERUSER/scrutiny/bin/scrutiny-web-linux-amd64 start --config /home/$CONTAINERUSER/scrutiny/config/scrutiny.yaml
-ENTRYPOINT ["bash" "/init.sh"]
+ENTRYPOINT ["/init.sh"]
