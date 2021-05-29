@@ -1,0 +1,13 @@
+FROM registry.gitlab.com/dedyms/sid-slim:rolling
+ARG RELEASE
+ARG ARCH
+ENV SCRUTINY_VERSION=$RELEASE
+RUN apt update && apt install --no-install-recommends -y smartmontools cron && apt clean && rm -rf /var/lib/apt/lists/*
+COPY init.sh /init.sh
+RUN mkdir -p /scrutiny/collector
+WORKDIR /scrutiny/collector
+COPY scrutiny.cron /etc/cron.d/scrutiny
+ADD https://github.com/AnalogJ/scrutiny/releases/download/$RELEASE/scrutiny-collector-metrics-linux-$ARCH /scrutiny/collector
+RUN chmod +x /home/$CONTAINERUSER/scrutiny/collector/scrutiny-collector-metrics-linux-amd64
+ENTRYPOINT ["cron", "-f"]
+#CMD /home/$CONTAINERUSER/scrutiny/bin/scrutiny-web-linux-amd64 start --config /home/$CONTAINERUSER/scrutiny/config/scrutiny.yaml
