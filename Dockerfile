@@ -8,7 +8,7 @@ RUN mkdir -p /home/$CONTAINERUSER/scrutiny/config && \
     mkdir -p /home/$CONTAINERUSER/scrutiny/web && \
     mkdir -p /home/$CONTAINERUSER/scrutiny/bin
 WORKDIR /home/$CONTAINERUSER/scrutiny
-COPY scrutiny.yml /home/$CONTAINERUSER/scrutiny/config/scrutiny.yml
+COPY scrutiny.yaml /home/$CONTAINERUSER/scrutiny/config/scrutiny.yaml
 ADD --chown=$CONTAINERUSER:$CONTAINERUSER https://github.com/AnalogJ/scrutiny/releases/download/$RELEASE/scrutiny-web-linux-$ARCH /home/$CONTAINERUSER/scrutiny/bin
 ADD --chown=$CONTAINERUSER:$CONTAINERUSER https://github.com/AnalogJ/scrutiny/releases/download/$RELEASE/scrutiny-web-frontend.tar.gz /home/$CONTAINERUSER/scrutiny/web
 RUN chmod +x /home/$CONTAINERUER/scrutiny/bin/scrutiny-web-linux-$ARCH && \
