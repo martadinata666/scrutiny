@@ -18,10 +18,10 @@ RUN chmod +x /home/$CONTAINERUSER/scrutiny/bin/scrutiny-web-linux-$ARCH && \
 
 
 FROM registry.gitlab.com/dedyms/sid-slim:latest
-ARG ARCH
 ARG RELEASE
+ENV ARCH
 ENV SCRUTINY_VERSION=$RELEASE
 USER $CONTAINERUSER
 COPY --from=tukang /home/$CONTAINERUSER/scrutiny/ /home/$CONTAINERUSER/scrutiny/
 VOLUME /home/$CONTAINERUSER/scrutiny/config
-CMD /home/$CONTAINERUSER/scrutiny/bin/scrutiny-web-linux-amd64 start --config /home/$CONTAINERUSER/scrutiny/confing/scrutiny.yaml
+CMD /home/$CONTAINERUSER/scrutiny/bin/scrutiny-web-linux-$ARCH start --config /home/$CONTAINERUSER/scrutiny/confing/scrutiny.yaml
