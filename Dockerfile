@@ -18,6 +18,7 @@ RUN chmod +x /home/$CONTAINERUSER/scrutiny/bin/scrutiny-web-linux-$ARCH && \
 
 FROM registry.gitlab.com/dedyms/sid-slim:latest
 ARG RELEASE
+ARG ARCH
 ENV ARCH=$ARCH
 ENV SCRUTINY_VERSION=$RELEASE
 USER $CONTAINERUSER

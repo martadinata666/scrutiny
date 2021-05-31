@@ -7,6 +7,7 @@ RUN chmod +x scrutiny-collector-metrics-linux-amd64
 FROM registry.gitlab.com/dedyms/sid-slim:latest
 ARG RELEASE
 ARG ARCH
+ENV ARCH=$ARCH
 ENV SCRUTINY_VERSION=$RELEASE
 RUN apt update && apt install --no-install-recommends -y smartmontools cron && apt clean && rm -rf /var/lib/apt/lists/*
 RUN mkdir -p /scrutiny/collector
