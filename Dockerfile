@@ -1,7 +1,6 @@
 FROM registry.gitlab.com/dedyms/sid-slim:latest AS tukang
 ARG RELEASE
 ARG ARCH
-ENV SCRUTINY_VERSION=$RELEASE
 USER $CONTAINERUSER
 RUN mkdir -p /home/$CONTAINERUSER/scrutiny/config && \
     mkdir -p /home/$CONTAINERUSER/scrutiny/web && \
@@ -19,7 +18,7 @@ RUN chmod +x /home/$CONTAINERUSER/scrutiny/bin/scrutiny-web-linux-$ARCH && \
 
 FROM registry.gitlab.com/dedyms/sid-slim:latest
 ARG RELEASE
-ENV ARCH
+ARG ARCH
 ENV SCRUTINY_VERSION=$RELEASE
 USER $CONTAINERUSER
 COPY --from=tukang /home/$CONTAINERUSER/scrutiny/ /home/$CONTAINERUSER/scrutiny/

@@ -1,7 +1,6 @@
 FROM registry.gitlab.com/dedyms/sid-slim:latest AS fetcher
 ARG RELEASE
 ENV ARCH
-ENV SCRUTINY_VERSION=$RELEASE
 ADD https://github.com/AnalogJ/scrutiny/releases/download/$RELEASE/scrutiny-collector-metrics-linux-$ARCH /
 RUN chmod +x scrutiny-collector-metrics-linux-amd64
 
