@@ -24,4 +24,4 @@ ENV SCRUTINY_VERSION=$RELEASE
 USER $CONTAINERUSER
 COPY --from=tukang /home/$CONTAINERUSER/scrutiny/ /home/$CONTAINERUSER/scrutiny/
 VOLUME /home/$CONTAINERUSER/scrutiny/config
-CMD /home/$CONTAINERUSER/scrutiny/bin/scrutiny-web-linux-$ARCH start --config /home/$CONTAINERUSER/scrutiny/confing/scrutiny.yaml
+CMD /home/$CONTAINERUSER/scrutiny/bin/scrutiny-web-linux-$ARCH start --config /home/$CONTAINERUSER/scrutiny/config/scrutiny.yaml

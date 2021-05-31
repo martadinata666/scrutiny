@@ -11,6 +11,6 @@ ARG ARCH
 ENV SCRUTINY_VERSION=$RELEASE
 RUN apt update && apt install --no-install-recommends -y smartmontools cron && apt clean && rm -rf /var/lib/apt/lists/*
 RUN mkdir -p /scrutiny/collector
-COPY --from=fetcher /scrutiny-collector-metrics-linux-${ARCH} /scrutiny/collector/scrutiny-collector-metrics-linux-${ARCH}
+COPY --from=fetcher /scrutiny-collector-metrics-linux-${ARCH} /scrutiny/collector/scrutiny-collector-metrics-linux-$ARCH
 COPY scrutiny.cron /etc/cron.d/scrutiny
 CMD cron -f 
