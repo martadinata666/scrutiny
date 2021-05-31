@@ -2,42 +2,86 @@
 variables:
   RELEASE: ""
   ARCH: ""
+  DOCKERHOST: tcp://docker:2375
 
-docker-web-amd64:
+docker-buildx-web:
   # Official docker image.
-  image: docker:latest
+  image: registry.gitlab.com/dedyms/docker-with-buildx:0.5.1
   stage: build
   services:
     - docker:dind
   before_script:
-    - export ARCH=amd64
+    - export ARCH="amd64"
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+    - docker login -u "$CI_DOCKERHUB_REGISTRY_USER" -p "$CI_DOCKERHUB_REGISTRY_PASSWORD" $CI_DOCKERHUB_REGISTRY
+    - docker run --rm --privileged registry.gitlab.com/dedyms/docker-binfmt-qemu:sid
   script:
-    - docker build --build-arg RELEASE=$RELEASE --build-arg ARCH=$ARCH --pull -t "$CI_REGISTRY_IMAGE" -t "$CI_REGISTRY_IMAGE:$RELEASE-web" .
-    - docker push "$CI_REGISTRY_IMAGE:$RELEASE-web"
+    - docker buildx create --use
+    - docker buildx inspect --bootstrap
+    - docker buildx build --build-arg ARCH=$ARCH --build-arg RELEASE=$RELEASE  --push --platform linux/amd64 -t "$CI_REGISTRY_IMAGE:$RELEASE" -t "$CI_DOCKERHUB_REGISTRY_IMAGE:$RELEASE" -t "$CI_REGISTRY_IMAGE" -t "$CI_DOCKERHUB_REGISTRY_IMAGE" .
   only:
     variables:
       - $RELEASE != ""
     refs:
       - master
 
-docker-collector-amd64:
+docker-buildx-collector:
   # Official docker image.
-  image: docker:latest
+  image: registry.gitlab.com/dedyms/docker-with-buildx:0.5.1
   stage: build
   services:
     - docker:dind
   before_script:
-    - export ARCH=amd64
+    - export ARCH="amd64"
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+    - docker login -u "$CI_DOCKERHUB_REGISTRY_USER" -p "$CI_DOCKERHUB_REGISTRY_PASSWORD" $CI_DOCKERHUB_REGISTRY
+    - docker run --rm --privileged registry.gitlab.com/dedyms/docker-binfmt-qemu:sid
   script:
-    - docker build --build-arg RELEASE=$RELEASE --build-arg ARCH=$ARCH --pull -t "$CI_REGISTRY_IMAGE" -t "$CI_REGISTRY_IMAGE:$RELEASE-collector" . -f Dockerfile.collector
-    - docker push "$CI_REGISTRY_IMAGE:$RELEASE-collector"
+    - docker buildx create --use
+    - docker buildx inspect --bootstrap
+    - docker buildx build --build-arg ARCH=$ARCH --build-arg RELEASE=$RELEASE  --push --platform linux/amd64 -t "$CI_REGISTRY_IMAGE:$RELEASE" -t "$CI_DOCKERHUB_REGISTRY_IMAGE:$RELEASE" -t "$CI_REGISTRY_IMAGE" -t "$CI_DOCKERHUB_REGISTRY_IMAGE" .
   only:
     variables:
       - $RELEASE != ""
     refs:
       - master
+
+
+#docker-web-amd64:
+  # Official docker image.
+#  image: docker:latest
+#  stage: build
+#  services:
+#    - docker:dind
+#  before_script:
+#    - export ARCH=amd64
+#    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+#  script:
+#    - docker build --build-arg RELEASE=$RELEASE --build-arg ARCH=$ARCH --pull -t "$CI_REGISTRY_IMAGE" -t "$CI_REGISTRY_IMAGE:$RELEASE-web" .
+#    - docker push "$CI_REGISTRY_IMAGE:$RELEASE-web"
+#  only:
+#    variables:
+#      - $RELEASE != ""
+#    refs:
+#      - master
+
+#docker-collector-amd64:
+  # Official docker image.
+#  image: docker:latest
+#  stage: build
+#  services:
+#    - docker:dind
+#  before_script:
+#    - export ARCH=amd64
+#    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+#  script:
+#    - docker build --build-arg RELEASE=$RELEASE --build-arg ARCH=$ARCH --pull -t "$CI_REGISTRY_IMAGE" -t "$CI_REGISTRY_IMAGE:$RELEASE-collector" . -f Dockerfile.collector
+#    - docker push "$CI_REGISTRY_IMAGE:$RELEASE-collector"
+#  only:
+#    variables:
+#      - $RELEASE != ""
+#    refs:
+#      - master
 
 #docker-build:
 #  # Official docker image.
