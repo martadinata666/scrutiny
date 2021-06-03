@@ -1,1 +1,1 @@
-*/15 * * * * /scrutiny/collector/scrutiny-collector-metrics-linux-${ARCH} run --api-endpoint "http://app:8080"
+*/15 * * * * /scrutiny/collector/scrutiny-collector-metrics-linux-${ARCH} run --api-endpoint ${SCRUTINY_API_URL}
