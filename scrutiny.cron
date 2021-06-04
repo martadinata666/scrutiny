@@ -1,1 +1,1 @@
-*/15 * * * * /scrutiny/collector/scrutiny-collector-metrics-linux-${ARCH} run --api-endpoint ${SCRUTINY_API_URL}
+*/15 * * * * root /scrutiny/collector/scrutiny-collector-metrics-linux-${ARCH} run --api-endpoint ${SCRUTINY_API_URL}
