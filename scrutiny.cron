@@ -1,1 +1,1 @@
-*/1 * * * * root  /scrutiny/collector/collector.sh
+*/1 * * * * root /env.sh; /scrutiny/collector/collector.sh /scrutiny/collector/scrutiny-collector-metrics-linux-${ARCH} run --api-endpoint ${SCRUTINY_API_URL} >/proc/1/fd/1 2>/proc/1/fd/2
