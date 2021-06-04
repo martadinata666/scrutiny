@@ -29,11 +29,7 @@ web:
 
 disks:
   include:
-     - /dev/sda
-     - /dev/sdb
-     - /dev/sdc
-     - /dev/sdd
-     - /dev/nvme0
+    # - /dev/sda
   exclude:
     # - /dev/sdb
 
@@ -41,7 +37,6 @@ notify:
   level: 'warn' # 'warn' or 'error'
   urls:
     #-  "discord://324893548648464384@testplexnotif"
-    -  https://discord.com/api/webhooks/801653095917682708/fZAnpTYY5QjrFqfD5tl3vOjAGqIQG6FuR1zVgM1WIQ9eNLEy0QGZdR-ODpKZ9d3pdL8b
     #- "telegram://token@telegram?channels=channel-1[,channel-2,...]"
     #- "pushover://shoutrrr:apiToken@userKey/?devices=device1[,device2, ...]"
     #- "slack://[botname@]token-a/token-b/token-c"
